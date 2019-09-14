@@ -1,0 +1,34 @@
+URxvt*font: xft:Source Code Pro:size=10
+URxvt*boldFont: xft:Source Code Pro:bold:size=10
+URxvt*italicFont: xft:Source Code Pro:italic:size=10
+URxvt*boldItalicFont: xft:Source Code Pro:bolditalic:size=10
+
+URxvt*scrollBar: false
+URxvt*internalBorder: 15
+
+urxvt*depth: 32
+URxvt*foreground:	#c5c5c5
+URxvt*background:	[90]#161616
+URxvt*color0:		#222222
+URxvt*color1:		#e84f4f
+URxvt*color2:		#b7ce42
+URxvt*color3:		#ffe863
+URxvt*color4:		#66aabb
+URxvt*color5:		#b7416e
+URxvt*color6:		#6d878d
+URxvt*color7:		#dddddd
+URxvt*color8:		#666666
+URxvt*color9:		#d23d3d
+URxvt*color10:		#efefef
+URxvt*color11:		#fea63c
+URxvt*color12:		#aaccbb
+URxvt*color13:		#e16a98
+URxvt*color14:		#42717b
+URxvt*color15:		#c5c5c5
+
+URxvt*iso14755: false
+URxvt*iso14755_52: false
+URxvt*keysym.Shift-Control-V: eval:paste_clipboard
+URxvt*keysym.Shift-Control-C: eval:selection_to_clipboard
+
+! #383838
