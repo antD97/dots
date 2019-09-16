@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Load Colemak-dh Awesome Config
+Comment=Change awesome's config to colemak-dh
+Exec=sh -c "sh ~/.config/awesome/to_colemak-dh.sh"

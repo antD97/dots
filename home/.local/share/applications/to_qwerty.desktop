@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Load QWERTY Awesome Config
+Comment=Change awesome's config to QWERTY
+Exec=sh -c "sh ~/.config/awesome/to_qwerty.sh"
