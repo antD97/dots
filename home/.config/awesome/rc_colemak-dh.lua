@@ -326,17 +326,13 @@ globalkeys = gears.table.join(
 	-- Client
 	---------------------------------------
 	-- minimize
-	awful.key({ modkey, "Shift" }, "h", function() restore_min() end,
+	awful.key({ modkey, "Shift" }, "n", function() restore_min() end,
 			  {description = "Restore minimized", group = "Client"}),
 
 	-- Launcher
 	---------------------------------------
 	awful.key({ modkey }, "Return", function() awful.spawn(terminal) end,
 			  {description = "Terminal", group = "Launcher"}),
-	awful.key({ modkey }, "s", function() awful.spawn(browser) end,
-			  {description = "Browser", group = "Launcher"}),
-	awful.key({ modkey}, "r", function() awful.spawn("/usr/bin/thunar") end,
-			  {description = "Filemanager", group = "Launcher"}),
 	awful.key({ modkey, "Control"}, "Escape", function() awful.spawn("/usr/bin/rofi -show drun -modi drun") end,
 			  {description = "Rofi", group = "Launcher"}),
 
@@ -433,7 +429,7 @@ clientkeys = gears.table.join(
 	awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end,
 			  {description = "Toggle keep on top", group = "Client"}),
 	-- minimize
-	awful.key({ modkey }, "h", function(c) c.minimized = true end,
+	awful.key({ modkey }, "n", function(c) c.minimized = true end,
 		{description = "Minimize", group = "Client"}),
 	-- maximize
 	awful.key({ modkey }, "m", function(c) maximize(c) end,
