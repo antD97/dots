@@ -31,8 +31,8 @@ theme.fg_minimize = "#666666" -- theme.fg_normal
 -- Border
 -------------------------------------------------------------------------------
 
-theme.border_width  = 4
-theme.useless_gap = 10
+theme.border_width  = 3
+theme.useless_gap = 5
 theme.border_normal = theme.bg_normal
 theme.border_focus  = theme.fg_normal -- theme.bg_focus
 theme.border_marked = theme.fg_normal -- theme.bg_focus

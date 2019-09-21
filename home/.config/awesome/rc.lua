@@ -1,4 +1,4 @@
--- QWERTY
+-- COLEMAK-DH
 
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -328,7 +328,7 @@ globalkeys = gears.table.join(
 	-- Client
 	---------------------------------------
 	-- minimize
-	awful.key({ modkey, "Shift" }, "n", function() restore_min() end,
+	awful.key({ modkey, "Shift" }, "h", function() restore_min() end,
 			  {description = "Restore minimized", group = "Client"}),
 
 	-- Launcher
@@ -361,7 +361,7 @@ globalkeys = gears.table.join(
 
 	-- Screen
 	---------------------------------------
-	awful.key({ modkey }, ";", function() awful.screen.focus_relative(1) end,
+	awful.key({ modkey }, "o", function() awful.screen.focus_relative(1) end,
 			  {description = "Focus the next screen", group = "Screen"}),
 
 	-- Screenshot
@@ -375,9 +375,9 @@ globalkeys = gears.table.join(
 
 	-- Tag
 	---------------------------------------
-	awful.key({ modkey }, "u", awful.tag.viewprev,
+	awful.key({ modkey }, "l", awful.tag.viewprev,
               {description = "View previous", group = "Tag"}),
-    awful.key({ modkey }, "o", awful.tag.viewnext,
+    awful.key({ modkey }, "y", awful.tag.viewnext,
               {description = "View next", group = "Tag"})
 )
 
@@ -386,33 +386,33 @@ clientkeys = gears.table.join(
 	-- Client
 	---------------------------------------
 	-- focus navigation
-	awful.key({ modkey }, "i", function(c) focus_switch_byd(c, "up") end,
+	awful.key({ modkey }, "u", function(c) focus_switch_byd(c, "up") end,
 		{description = "Move focus up", group = "Client"}),
-	awful.key({ modkey }, "k", function(c) focus_switch_byd(c, "down") end,
+	awful.key({ modkey }, "e", function(c) focus_switch_byd(c, "down") end,
 		{description = "Move focus down", group = "Client"}),
-	awful.key({ modkey }, "j", function(c) focus_switch_byd(c, "left") end,
+	awful.key({ modkey }, "n", function(c) focus_switch_byd(c, "left") end,
 		{description = "Move focus left", group = "Client"}),
-	awful.key({ modkey }, "l", function(c) focus_switch_byd(c, "right") end,
+	awful.key({ modkey }, "i", function(c) focus_switch_byd(c, "right") end,
 		{description = "Move focus right", group = "Client"}),
 
 	-- swapping or moving
-	awful.key({ modkey, "Shift" }, "i", function(c) swap_or_move(c, "up") end,
+	awful.key({ modkey, "Shift" }, "u", function(c) swap_or_move(c, "up") end,
 			  {description = "Swap or move up", group = "Client"}),
-	awful.key({ modkey, "Shift" }, "k", function(c) swap_or_move(c, "down") end,
+	awful.key({ modkey, "Shift" }, "e", function(c) swap_or_move(c, "down") end,
 			  {description = "Swap or move down", group = "Client"}),
-	awful.key({ modkey, "Shift" }, "j", function(c) swap_or_move(c, "left") end,
+	awful.key({ modkey, "Shift" }, "n", function(c) swap_or_move(c, "left") end,
 			  {description = "Swap or move left", group = "Client"}),
-	awful.key({ modkey, "Shift" }, "l", function(c) swap_or_move(c, "right") end,
+	awful.key({ modkey, "Shift" }, "i", function(c) swap_or_move(c, "right") end,
 			  {description = "Swap or move right", group = "Client"}),
 
 	-- resizing
-	awful.key({ modkey, "Control" }, "i", function(c) resize(c, "up") end,
+	awful.key({ modkey, "Control" }, "u", function(c) resize(c, "up") end,
 			  {description = "Increase floating client height", group = "Client"}),
-	awful.key({ modkey, "Control" }, "k", function(c) resize(c, "down") end,
+	awful.key({ modkey, "Control" }, "e", function(c) resize(c, "down") end,
 			  {description = "Decrease floating client height", group = "Client"}),
-	awful.key({ modkey, "Control" }, "j", function(c) resize(c, "left") end,
+	awful.key({ modkey, "Control" }, "n", function(c) resize(c, "left") end,
 			  {description = "Decrease floating client width", group = "Client"}),
-	awful.key({ modkey, "Control" }, "l", function(c) resize(c, "right") end,
+	awful.key({ modkey, "Control" }, "i", function(c) resize(c, "right") end,
 			  {description = "Increase floating client width", group = "Client"}),
 
 	-- fullscreen
@@ -425,13 +425,13 @@ clientkeys = gears.table.join(
 	awful.key({ modkey }, "f",  awful.client.floating.toggle,
 			  {description = "Toggle floating", group = "Client"}),
 	-- move to screen
-	awful.key({ modkey, "Shift"}, ";", function(c) c:move_to_screen() end,
+	awful.key({ modkey, "Shift"}, "o", function(c) c:move_to_screen() end,
 			  {description = "Move to next screen", group = "Client"}),
 	-- keep on top
 	awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end,
 			  {description = "Toggle keep on top", group = "Client"}),
 	-- minimize
-	awful.key({ modkey }, "n", function(c) c.minimized = true end,
+	awful.key({ modkey }, "h", function(c) c.minimized = true end,
 		{description = "Minimize", group = "Client"}),
 	-- maximize
 	awful.key({ modkey }, "m", function(c) maximize(c) end,
