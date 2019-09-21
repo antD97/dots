@@ -8,7 +8,7 @@ URxvt*internalBorder: 15
 
 urxvt*depth: 32
 URxvt*foreground:	#c5c5c5
-URxvt*background:	[90]#161616
+URxvt*background:	[95]#161616
 URxvt*color0:		#222222
 URxvt*color1:		#e84f4f
 URxvt*color2:		#b7ce42
