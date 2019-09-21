@@ -14,7 +14,7 @@ theme.notification_font = "Noto Sans Regular 10"
 
 
 -- Colors
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 theme.bg_normal   = "#161616"
 theme.fg_normal   = "#efefef"
@@ -29,7 +29,7 @@ theme.fg_urgent   = "#d23d3d"
 theme.fg_minimize = "#666666" -- theme.fg_normal
 
 -- Border
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 theme.border_width  = 3
 theme.useless_gap = 5
@@ -38,7 +38,7 @@ theme.border_focus  = theme.fg_normal -- theme.bg_focus
 theme.border_marked = theme.fg_normal -- theme.bg_focus
 
 -- Other
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 theme.hotkeys_modifiers_fg = "#ffffff"
 theme.titlebar_bg_focus = theme.fg_normal
@@ -131,6 +131,9 @@ theme.layout_cornersw   = themes_path .. "layouts/cornersww.png"
 theme.layout_cornerse   = themes_path .. "layouts/cornersew.png"
 
 theme.awesome_icon = themes_path .. "manjaro-icon.png"
+
+-- Tag icons
+theme.tag_chat = themes_path .. "tags/chat.png"
 
 -- Define the icon theme for application icons. If not set then the icons 
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.

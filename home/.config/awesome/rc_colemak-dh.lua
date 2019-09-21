@@ -18,9 +18,11 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Freedesktop menu
 local freedesktop = require("freedesktop")
+-- Multimonitor
+local xrandr = require("xrandr")
 
 -- Error handling
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -45,7 +47,7 @@ do
 end
 
 -- Variable definitions
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 
@@ -60,12 +62,13 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	awful.layout.suit.tile,
+	awful.layout.suit.tile.right,
+	awful.layout.suit.tile.left,
 	awful.layout.suit.floating
 }
 
 -- Menu
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
@@ -97,7 +100,7 @@ mymainmenu = freedesktop.menu.build({
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
 -- Wibar
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Create a launcher widget
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 									 menu = mymainmenu })
@@ -111,19 +114,7 @@ separator = wibox.widget.textbox(' <span color="' .. beautiful.fg_normal .. '">|
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
 	awful.button({ }, 1, function(t) t:view_only() end),
-	awful.button({ modkey }, 1, function(t)
-		if client.focus then
-			client.focus:move_to_tag(t)
-		end
-		end),
-	awful.button({ }, 3, awful.tag.viewtoggle),
-	awful.button({ modkey }, 3, function(t)
-		if client.focus then
-			client.focus:toggle_tag(t)
-		end
-		end),
-	awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-	awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+	awful.button({ }, 3, awful.tag.viewtoggle)
 )
 
 local tasklist_buttons = gears.table.join(
@@ -138,9 +129,7 @@ local tasklist_buttons = gears.table.join(
 				)
 		end
 		end),
-	awful.button({ }, 3, function() awful.menu.client_list({ theme = { width = 250 } }) end),
-	awful.button({ }, 4, function() awful.client.focus.byidx(1) end),
-	awful.button({ }, 5, function() awful.client.focus.byidx(-1) end))
+	awful.button({ }, 3, function() awful.menu.client_list({ theme = { width = 250 } }) end))
 
 local function set_wallpaper(s)
 	-- Wallpaper
@@ -161,19 +150,44 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
 
+	num_displays = 0
+	for _ in pairs(xrandr.outputs()) do num_displays = num_displays + 1 end
+
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
+	-- One display
+	if num_displays == 1 then
+		awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+
+		-- chat tag
+		awful.tag.add("chat", { screen = s, layout = awful.layout.layouts[1] })
+
+	-- More than one display
+	else
+		awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+
+		-- chat tag
+		if s.index == 2 then
+			awful.tag.add("chat", { screen = s, layout = awful.layout.layouts[1] })
+		else
+			awful.tag.add("5", { screen = s, layout = awful.layout.layouts[1] })
+		end
+	end
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
 	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
 	-- We need one layoutbox per screen.
 	s.mylayoutbox = awful.widget.layoutbox(s)
+
 	s.mylayoutbox:buttons(gears.table.join(
-		awful.button({ }, 1, function() awful.layout.inc( 1) end),
-		awful.button({ }, 3, function() awful.layout.inc(-1) end),
-		awful.button({ }, 4, function() awful.layout.inc( 1) end),
-		awful.button({ }, 5, function() awful.layout.inc(-1) end)))
+		awful.button({ }, 1, function()
+			if awful.layout.get() == awful.layout.layouts[1] then awful.layout.set(awful.layout.layouts[2])
+			elseif awful.layout.get() == awful.layout.layouts[2] then awful.layout.set(awful.layout.layouts[1]) end
+		end),
+		awful.button({ }, 3, function()
+			if awful.layout.get() ~= awful.layout.layouts[3] then awful.layout.set(awful.layout.layouts[3])
+			elseif awful.layout.get() == awful.layout.layouts[3] then awful.layout.set(awful.layout.layouts[1]) end
+		end)))
 	-- Create a taglist widget
 	s.mytaglist = awful.widget.taglist {
 		screen  = s,
@@ -250,14 +264,14 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 -- Mouse bindings
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 root.buttons(gears.table.join(
 	awful.button({ }, 1, function() mymainmenu:hide() end),
 	awful.button({ }, 3, function() mymainmenu:toggle() end)
 ))
 
 -- Key bindings helper functions
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 local function focus_switch_byd(c, dir)
 	awful.client.focus.bydirection(dir)
 	if client.focus then client.focus:raise() end
@@ -311,7 +325,7 @@ local function maximize(c)
 end
 
 -- Key bindings
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 globalkeys = gears.table.join(
 
 	-- Awesome
@@ -355,9 +369,32 @@ globalkeys = gears.table.join(
 			  {description = "Increase the number of columns", group = "Layout"}),
 	awful.key({ modkey, "Shift" }, "Down", function() awful.tag.incncol(-1, nil, true) end,
 			  {description = "Decrease the number of columns", group = "Layout"}),
-	-- layout select
-	awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(1) end,
-			  {description = "Select next", group = "Layout"}),
+	-- layout side
+	awful.key({ modkey }, "space",
+			  function()
+				if awful.layout.get() == awful.layout.layouts[1] then awful.layout.set(awful.layout.layouts[2])
+				elseif awful.layout.get() == awful.layout.layouts[2] then awful.layout.set(awful.layout.layouts[1])
+				end
+			  end,
+			  {description = "Toggle tile master client side", group = "Layout"}),
+	-- float layout
+	awful.key({ modkey, "Shift" }, "space",
+			  function()
+				if awful.layout.get() == awful.layout.layouts[3] then awful.layout.set(awful.layout.layouts[1])
+				else awful.layout.set(awful.layout.layouts[3])
+				end
+			  end,
+			  {description = "Toggle floating layout", group = "Layout"}),
+	-- reset tile layout
+	awful.key({ modkey }, "r",
+			function()
+				if awful.layout.get() ~= awful.layout.layouts[3] then
+					awful.tag.setmwfact(0.5)
+					awful.tag.setncol(1)
+					awful.tag.setnmaster(1)
+				end
+			end,
+			{description = "Toggle floating layout", group = "Layout"}),
 
 	-- Screen
 	---------------------------------------
@@ -498,7 +535,11 @@ clientbuttons = gears.table.join(
 root.keys(globalkeys)
 
 -- Rules
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+for _ in pairs(xrandr.outputs()) do num_displays = num_displays + 1 end
+if num_displays == 1 then discord_screen = 1
+else discord_screen = 2 end
+
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
 
@@ -550,11 +591,21 @@ awful.rules.rules = {
 			}
 		},
 		properties = { floating = true }
+	},
+
+	-- Application specific
+	{
+		rule = { class = "discord" },
+		properties = { screen = discord_screen, tag = "chat" }
+	},
+	{
+		rule = { class = "URxvt" },
+		properties = { size_hints_honor = false }
 	}
 }
 
 -- Signals
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
 	-- Set the windows at the slave,
