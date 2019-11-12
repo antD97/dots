@@ -102,8 +102,8 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Wibar
 --------------------------------------------------------------------------------
 -- Create a launcher widget
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-									 menu = mymainmenu })
+-- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+-- 									 menu = mymainmenu })
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%a %b %d %I:%M%p")
@@ -156,18 +156,22 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Each screen has its own tag table.
 	-- One display
 	if num_displays == 1 then
-		awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+		awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8" }, s, awful.layout.layouts[1])
+
+		-- music tag
+		awful.tag.add("", { screen = s, layout = awful.layout.layouts[1] })
 
 		-- chat tag
-		awful.tag.add("chat", { screen = s, layout = awful.layout.layouts[1] })
+		awful.tag.add("", { screen = s, layout = awful.layout.layouts[1] })
 
 	-- More than one display
 	else
-		awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+		awful.tag({ "1", "2", "3" }, s, awful.layout.layouts[1])
 
-		-- chat tag
+		-- music & chat tag
 		if s.index == 2 then
-			awful.tag.add("chat", { screen = s, layout = awful.layout.layouts[1] })
+			awful.tag.add("", { screen = s, layout = awful.layout.layouts[1] })
+			awful.tag.add("", { screen = s, layout = awful.layout.layouts[1] })
 		else
 			awful.tag.add("5", { screen = s, layout = awful.layout.layouts[1] })
 		end
@@ -581,10 +585,14 @@ awful.rules.rules = {
 	-- Application specific
 	{
 		rule = { class = "discord" },
-		properties = { screen = discord_screen, tag = "chat" }
+		properties = { screen = discord_screen, tag = "" }
 	},
 	{
 		rule = { class = "URxvt" },
+		properties = { size_hints_honor = false }
+	},
+	{
+		rule = { class = "Code" },
 		properties = { size_hints_honor = false }
 	}
 }

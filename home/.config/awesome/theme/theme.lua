@@ -11,7 +11,8 @@ theme = {}
 
 theme.font              = "Noto Sans Regular 10"
 theme.notification_font = "Noto Sans Regular 10"
-
+-- theme.font              = "FontAwesome 10"
+-- theme.notification_font = "FontAwesome 10"
 
 -- Colors
 --------------------------------------------------------------------------------
