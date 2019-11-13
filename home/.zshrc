@@ -56,7 +56,8 @@ bindkey '^[[Z' undo                                             # Shift+tab undo
 alias cp="cp -i"                                                # Confirm before overwriting something
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
-alias gitu='git add . && git commit && git push'
+# alias gitu='git add . && git commit && git push'
+alias yt-dl='youtube-dl -f bestaudio -x --audio-quality 256K --audio-format mp3 --no-playlist -o "~/Music/Google Music/%(title)s.%(ext)s"'
 
 # Theming section  
 autoload -U compinit colors zcalc
