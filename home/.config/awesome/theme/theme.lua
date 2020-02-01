@@ -20,7 +20,7 @@ theme.notification_font = "Noto Sans Regular 10"
 theme.bg_normal   = "#161616"
 theme.fg_normal   = "#efefef"
 
-theme.bg_focus    = "#666666" -- "#383838" -- "#42717b"
+theme.bg_focus    = "#444444" -- "#383838" -- "#42717b"
 theme.bg_urgent   = theme.bg_normal
 theme.bg_minimize = "#222222" -- theme.bg_normal
 theme.bg_systray  = theme.bg_normal
@@ -132,9 +132,6 @@ theme.layout_cornersw   = themes_path .. "layouts/cornersww.png"
 theme.layout_cornerse   = themes_path .. "layouts/cornersew.png"
 
 theme.awesome_icon = themes_path .. "manjaro-icon.png"
-
--- Tag icons
-theme.tag_chat = themes_path .. "tags/chat.png"
 
 -- Define the icon theme for application icons. If not set then the icons 
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
